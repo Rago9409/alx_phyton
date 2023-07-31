@@ -1,11 +1,11 @@
-"""This program function defines a square with a private instance attribute called size.
-    
+"""This class defines a square with a private instance attribute called size.
+
     Args:
         size (int): The size of the square.
     """
 class Square:
     """This class defines a square with a private instance attribute called size.
-    
+
     Args:
         size (int): The size of the square.
     """
