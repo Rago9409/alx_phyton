@@ -1,5 +1,4 @@
-"""This module defines a square with a private instance attribute called size.
-    
+"""This code program  defines a square with a size
     Args:
         size (int): The size of the square.
     """
