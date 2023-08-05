@@ -152,6 +152,9 @@ class Rectangle(Base):
         """
         return self.width * self.height
     def display(self): 
+        """
+          display # of the Rectangle instance.
+        """
         for y in range(self.height):
             for x in range(self.width):
                 if x == 0 or x == self.width - 1 or y == 0 or y == self.height - 1:
@@ -160,8 +163,14 @@ class Rectangle(Base):
                     print(" ", end="")
             print()
     def __str__(self):
+        """
+          Displays string format  of the Rectangle instance.
+        """
         return f"[Rectangle] ({id(self)}) {self.width}/{self.height}" 
     def update(self, *args,**kwargs):
+        """
+          returns the area value of the Rectangle instance.
+        """
         if args:
             for i, arg in enumerate(args):
              if i == 0:
