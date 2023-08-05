@@ -5,8 +5,17 @@ class Base:
  """This code program  defines a class Base that is 
  the base class aimed to manage id attribute."""
  __nb_objects = 0
- """This code program defines a class constructor."""
+ 
 def __init__(self, id=None):
+        """
+        Initializes a Base object
+
+        Args:
+            id (int): unique identifier for Base object
+
+        Returns:
+            None
+        """
         if id is not None:
             self.id = id
         else:
