@@ -1,8 +1,9 @@
-"""This code program  defines a class Base.
+"""This code program  defines a class Base that is the base 
+class aimed to manage id attribute.
     """
 class Base:
  __nb_objects = 0
- """This code program  class constructor.
+ """This code program defines a class constructor.
     """
 def __init__(self, id=None):
         if id is not None:
