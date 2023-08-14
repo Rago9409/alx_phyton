@@ -1,5 +1,9 @@
-"""This is class BaseGeometry."""
+"""Defines a base geometry class BaseGeometry."""
+
+
 class BaseGeometry:
-    """This Function raises an Exception with the message area() is not implemented"""
+    """Represent base geometry."""
+
     def area(self):
+        """Not implemented."""
         raise Exception("area() is not implemented")
