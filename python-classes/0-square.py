@@ -1,19 +1,13 @@
-"""This code program  defines a square with a size
-    Args:
-        size (int): The size of the square.
-    """
+"""Define a class Square."""
+
+
 class Square:
-    """This class defines a square with a private instance attribute called size.
-    
-    Args:
-        size (int): The size of the square.
-    """
+    """Represent a square."""
+
     def __init__(self, size):
-        """
-        The constructor for Square class.
+        """Initialize a new Square.
 
-        Parameters:
-            size (int): The size of the square.
-
+        Args:
+            size (int): The size of the new square.
         """
         self.__size = size
