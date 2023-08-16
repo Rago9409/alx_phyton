@@ -15,7 +15,8 @@ class Square(Rectangle):
         self.integer_validator("size", size)
         super().__init__(size, size)
         self.__size = size
-        return [x for x in dir(size) if not x.startswith('__')]
+        square=Square()
+        return dir((square))
 
      
        
