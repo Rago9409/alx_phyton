@@ -7,4 +7,3 @@ class BaseGeometry:
     ''' Class: BaseGeometry
     '''
     pass
-print(vars( BaseGeometry))
