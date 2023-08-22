@@ -1,5 +1,5 @@
 """
-This script lists all State objects that contain the letter a 
+This script lists all State objects that contain the letter a
 from the database `hbtn_0e_6_usa`.
 """
 
@@ -22,6 +22,6 @@ if __name__ == "__main__":
 
     session = Session()
 
-    for instance in session.query(State).
-    filter(State.name.like('%a%')).order_by(State.id):
+    for instance in session.query(State).filter
+    (State.name.like('%a%')).order_by(State.id):
     print('{}: {}'.format(instance.id, instance.name))
