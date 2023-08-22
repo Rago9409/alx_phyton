@@ -15,7 +15,7 @@ if __name__ == "__main__":
     """
 
     db_url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
-         argv[1], argv[2], argv[3])
+        argv[1], argv[2], argv[3])
 
     engine = create_engine(db_url)
     Session = sessionmaker(bind=engine)
@@ -23,5 +23,5 @@ if __name__ == "__main__":
     session = Session()
 # noqa: E501
 for instance in session.query(State).filter(State.name.like
-         ('%a%')).order_by(State.id):
+                                            ('%a%')).order_by(State.id):
     print('{}: {}'.format(instance.id, instance.name))
