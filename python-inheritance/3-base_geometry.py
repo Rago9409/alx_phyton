@@ -2,5 +2,7 @@
 
 
 class BaseGeometry:
-    """Represent base geometry."""
+    """
+    An empty class that can be used as a base class for other classes.
+    """
     pass
