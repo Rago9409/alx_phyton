@@ -43,7 +43,7 @@ def c_text(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
     """
-    returns a string "Python <text>" when the route '/python/<text>' is accessed.
+    returns a string "Python <text>".
 
     Args:
         text (str): A string to be displayed after "Python".
@@ -85,8 +85,8 @@ def number_template(n):
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_odd_or_even(n):
     """
-    returns an HTML page with the text "Number: <n> is even|odd" 
-    
+    returns an HTML page with the text "Number: <n> is even|odd"
+
     Args:
         n (int): An integer to be displayed in the response.
 
