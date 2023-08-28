@@ -1,3 +1,4 @@
+"""Display the stringand followed by text python and an integer"""
 from flask import Flask
 app = Flask(__name__)
 
