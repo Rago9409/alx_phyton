@@ -1,6 +1,8 @@
+""" Display the string followed by string C"""
 from flask import Flask
 
 app = Flask(__name__)
+
 
 @app.route('/', strict_slashes=False)
 def hello_hbnb():
