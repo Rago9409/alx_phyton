@@ -6,8 +6,7 @@ app = Flask(__name__)
 @app.route('/', strict_slashes=False)
 def hello():
     """
-    This function returns a string "Hello HBNB!" 
-    when the route '/' is accessed.
+    returns a string "Hello HBNB!"when the route '/' is accessed.
 
     Returns:
         str: A string "Hello HBNB!".
@@ -29,8 +28,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c(text):
     """
-    This function returns a string "C <text>" 
-    when the route '/c/<text>' is accessed.
+    returns a string "C <text>" when the route '/c/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "C".
@@ -45,8 +43,7 @@ def c(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python(text):
     """
-    This function returns a string "Python <text>" when the 
-    route '/python/<text>' is accessed.
+    returns string "Python <text>" when the route '/python/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "Python".
