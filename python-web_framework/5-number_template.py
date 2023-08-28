@@ -43,7 +43,7 @@ def c_text(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
     """
-    returns a string "Python <text>" when the route '/python/<text>' is accessed.
+    returns a string when the route '/python/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "Python".
@@ -72,8 +72,7 @@ def number(n):
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
     """
-    This function returns an HTML page with the text "Number: 
-    <n>" when the route '/number_template/<n>' is accessed.
+    This function returns an HTML page with the text "Number:
 
     Args:
         n (int): An integer to be displayed in the response.
