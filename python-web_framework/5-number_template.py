@@ -1,12 +1,12 @@
+"""Display a number"""
 from flask import Flask, render_template
-
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
 def hello_hbnb():
     """
-    This function returns a string "Hello HBNB!" when the route '/' is accessed.
+    returns a string "Hello HBNB!" when the route '/' is accessed.
 
     Returns:
         str: A string "Hello HBNB!".
@@ -17,7 +17,7 @@ def hello_hbnb():
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """
-    This function returns a string "HBNB" when the route '/hbnb' is accessed.
+    returns a string "HBNB" when the route '/hbnb' is accessed.
 
     Returns:
         str: A string "HBNB".
@@ -28,7 +28,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_text(text):
     """
-    This function returns a string "C <text>" when the route '/c/<text>' is accessed.
+    returns a string "C <text>" when the route '/c/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "C".
@@ -43,7 +43,7 @@ def c_text(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
     """
-    This function returns a string "Python <text>" when the route '/python/<text>' is accessed.
+    returns a string "Python <text>" when the route '/python/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "Python".
