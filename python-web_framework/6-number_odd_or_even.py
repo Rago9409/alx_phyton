@@ -1,13 +1,12 @@
+""""Display a stings and a number even or odd"""
 from flask import Flask, render_template
-
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
 def hello_hbnb():
     """
-    This function returns a string "Hello HBNB!" 
-    when the route '/' is accessed.
+    returns a string "Hello HBNB!" when the route '/' is accessed.
 
     Returns:
         str: A string "Hello HBNB!".
@@ -18,8 +17,7 @@ def hello_hbnb():
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """
-    This function returns a string "HBNB"
-    when the route '/hbnb' is accessed.
+    returns a string "HBNB" when the route '/hbnb' is accessed.
 
     Returns:
         str: A string "HBNB".
@@ -30,8 +28,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_text(text):
     """
-    This function returns a string "C <text>" 
-    when the route '/c/<text>' is accessed.
+    returns a string "C <text>" when the route '/c/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "C".
@@ -46,7 +43,7 @@ def c_text(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
     """
-    This function returns a string "Python <text>" when the route '/python/<text>' is accessed.
+    returns a string "Python <text>" when the route '/python/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "Python".
@@ -60,8 +57,7 @@ def python_text(text):
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
     """
-    This function returns a string "<n> is a number" 
-    when the route '/number/<n>' is accessed.
+    returns a string "<n> is a number" in route '/number/<n>'.
 
     Args:
         n (int): An integer to be displayed in the response.
@@ -75,8 +71,7 @@ def number(n):
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
     """
-    This function returns an HTML page with the text "Number: <n>" 
-    when the route '/number_template/<n>' is accessed.
+    returns an HTML page with the text "Number: <n>".
 
     Args:
         n (int): An integer to be displayed in the response.
@@ -90,9 +85,8 @@ def number_template(n):
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_odd_or_even(n):
     """
-    This function returns an HTML page with the text "Number: <n> is even|odd" 
-    when the route '/number_odd_or_even/<n>' is accessed.
-
+    returns an HTML page with the text "Number: <n> is even|odd" 
+    
     Args:
         n (int): An integer to be displayed in the response.
 
@@ -106,4 +100,3 @@ def number_odd_or_even(n):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
