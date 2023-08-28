@@ -6,13 +6,14 @@ app = Flask(__name__)
 @app.route('/', strict_slashes=False)
 def hello():
     """
-    This function returns a string "Hello HBNB!" when the route '/' is accessed.
+    This function returns a string "Hello HBNB!" 
+    when the route '/' is accessed.
 
     Returns:
         str: A string "Hello HBNB!".
     """
     return 'Hello HBNB!'
-   
+
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
@@ -28,7 +29,8 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c(text):
     """
-    This function returns a string "C <text>" when the route '/c/<text>' is accessed.
+    This function returns a string "C <text>" 
+    when the route '/c/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "C".
@@ -43,7 +45,8 @@ def c(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python(text):
     """
-    This function returns a string "Python <text>" when the route '/python/<text>' is accessed.
+    This function returns a string "Python <text>" when the 
+    route '/python/<text>' is accessed.
 
     Args:
         text (str): A string to be displayed after "Python".
@@ -64,10 +67,10 @@ def number(n):
         n (int): An integer to be displayed in the response.
 
     Returns:
-        str: A string "<n> is a number".
+       str: A string "<n> is a number".
     """
-    
-    
+
+
     return '{} is a number'.format(n)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
