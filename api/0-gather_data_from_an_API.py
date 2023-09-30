@@ -1,27 +1,33 @@
-#fetching employee,TODO lists and counting completed tasks
+import json
 import requests
 
-def get_employee_todo_progress(employee_id):
-    # Endpoint URLs
-    todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+def export_all_employee_todo_to_json():
+    # Endpoint URL
+    todos_url = "https://jsonplaceholder.typicode.com/todos"
+    employee_url = "https://jsonplaceholder.typicode.com/users"
 
     # Fetching employee details
     employee_response = requests.get(employee_url)
     employee_data = employee_response.json()
-    employee_name = employee_data["name"]
 
-    # Fetching TODO list
-    todos_response = requests.get(todos_url)
-    todos_data = todos_response.json()
+    # Creating JSON object
+    json_data = {}
+    for employee in employee_data:
+        employee_id = str(employee["id"])
+        employee_name = employee["name"]
+        json_data[employee_id] = []
+        todos_response = requests.get(f"{todos_url}?userId={employee_id}")
+        todos_data = todos_response.json()
+        for task in todos_data:
+            json_data[employee_id].append({
+                "task": task["title"],
+                "completed": task["completed"],
+                "username": employee_name
+            })
 
-    # Counting completed tasks
-    completed_tasks = [task for task in todos_data if task["completed"]]
-    number_of_done_tasks = len(completed_tasks)
-    total_number_of_tasks = len(todos_data)
+    # Creating JSON file
+    json_filename = "todo_all_employees.json"
+    with open(json_filename, "w") as jsonfile:
+        json.dump(json_data, jsonfile)
 
-    # Displaying progress
-    print(f"Employee {employee_name} is done with tasks ({number_of_done_tasks}/{total_number_of_tasks}):")
-    for task in completed_tasks:
-        print(f"\t{task['title']}")
-
+    print(f"JSON file '{json_filename}' has been created successfully.")
