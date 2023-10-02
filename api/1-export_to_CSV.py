@@ -1,9 +1,10 @@
 """Python script to export employee name,TODO lists and counting completed tasks data in the CSV format.
 """
 
+import csv
 import requests
 import sys
-import csv
+
 
 def get_employee_todo_progress(employee_id):
     url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
