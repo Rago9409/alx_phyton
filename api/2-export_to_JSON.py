@@ -1,34 +1,35 @@
-#fetching employee,TODO lists and counting completed tasks
+"""fetching employee,TODO lists and counting completed tasks
+"""
+
 import json
 import requests
+import sys
 
-def export_employee_todo_to_json(employee_id):
-    # Endpoint URLs
-    todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+def get_employee_todo_progress(employee_id):
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+    response = requests.get(url)
+    employee = response.json()
 
-    # Fetching employee details
-    employee_response = requests.get(employee_url)
-    employee_data = employee_response.json()
-    employee_name = employee_data["name"]
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+    response = requests.get(url)
+    todos = response.json()
 
-    # Fetching TODO list
-    todos_response = requests.get(todos_url)
-    todos_data = todos_response.json()
-
-    # Creating JSON object
-    json_data = {str(employee_id): []}
-    for task in todos_data:
-        json_data[str(employee_id)].append({
-            "task": task["title"],
-            "completed": task["completed"],
-            "username": employee_name
+    data = {}
+    data[employee_id] = []
+    for todo in todos:
+        data[employee_id].append({
+            "task": todo['title'],
+            "completed": todo['completed'],
+            "username": employee['name']
         })
 
-    # Creating JSON file
-    json_filename = f"{employee_id}.json"
-    with open(json_filename, "w") as jsonfile:
-        json.dump(json_data, jsonfile)
+    with open(f"{employee_id}.json", mode='w') as file:
+        json.dump(data, file)
 
-    print(f"JSON file '{json_filename}' has been created successfully.")
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} EMPLOYEE_ID")
+        sys.exit(1)
 
+    employee_id = sys.argv[1]
+    get_employee_todo_progress(employee_id)
