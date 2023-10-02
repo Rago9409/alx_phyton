@@ -5,7 +5,6 @@ import csv
 import requests
 import sys
 
-
 def get_employee_todo_progress(employee_id):
     url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     response = requests.get(url)
@@ -14,12 +13,12 @@ def get_employee_todo_progress(employee_id):
     url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
     response = requests.get(url)
     todos = response.json()
-csv_filename = f"{employee_id}.csv"
-with open(csv_filename, "w", newline="") as csvfile:
-        writer = csv.writer(csvfile)
+
+    with open(f"{employee_id}.csv", mode='w', newline='') as file:
+        writer = csv.writer(file)
         writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-        for task in todos_data:
-            writer.writerow([employee_id, employee_name, task["completed"], task["title"]])
+        for todo in todos:
+            writer.writerow([employee_id, employee['name'], todo['completed'], todo['title']])
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
