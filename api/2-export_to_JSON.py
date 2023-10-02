@@ -1,9 +1,9 @@
 """fetching employee,TODO lists and counting completed tasks
 """
 
+import json
 import requests
 import sys
-import json
 
 def get_employee_todo_progress(employee_id):
     url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
