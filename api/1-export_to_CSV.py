@@ -1,29 +1,29 @@
-"""fetching employee,TODO lists and counting completed tasks
+"""Python script to export employee name,TODO lists and counting completed tasks data in the CSV format.
 """
 
-import csv
 import requests
+import sys
+import csv
 
-def export_employee_todo_to_csv(employee_id):
-    # Endpoint URLs
-    todos_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+def get_employee_todo_progress(employee_id):
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+    response = requests.get(url)
+    employee = response.json()
 
-    # Fetching employee details
-    employee_response = requests.get(employee_url)
-    employee_data = employee_response.json()
-    employee_name = employee_data["name"]
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+    response = requests.get(url)
+    todos = response.json()
 
-    # Fetching TODO list
-    todos_response = requests.get(todos_url)
-    todos_data = todos_response.json()
-
-    # Creating CSV file
-    csv_filename = f"{employee_id}.csv"
-    with open(csv_filename, "w", newline="") as csvfile:
-        writer = csv.writer(csvfile)
+    with open(f"{employee_id}.csv", mode='w', newline='') as file:
+        writer = csv.writer(file)
         writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-        for task in todos_data:
-            writer.writerow([employee_id, employee_name, task["completed"], task["title"]])
+        for todo in todos:
+            writer.writerow([employee_id, employee['name'], todo['completed'], todo['title']])
 
-    print(f"CSV file '{csv_filename}' has been created successfully.")
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} EMPLOYEE_ID")
+        sys.exit(1)
+
+    employee_id = sys.argv[1]
+    get_employee_todo_progress(employee_id)
