@@ -1,4 +1,6 @@
-#fetching employee,TODO lists and counting completed tasks
+"""fetching employee,TODO lists and counting completed tasks
+"""
+
 import csv
 import requests
 
@@ -25,5 +27,3 @@ def export_employee_todo_to_csv(employee_id):
             writer.writerow([employee_id, employee_name, task["completed"], task["title"]])
 
     print(f"CSV file '{csv_filename}' has been created successfully.")
-
-
