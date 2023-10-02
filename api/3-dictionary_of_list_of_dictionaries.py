@@ -1,35 +1,30 @@
-#fetching employee,TODO lists and counting completed tasks
+"""fetching employee,TODO lists and counting completed tasks
+"""
 import json
 import requests
 
-def export_all_employee_todo_to_json():
-    # Endpoint URL
-    todos_url = "https://jsonplaceholder.typicode.com/todos"
-    employee_url = "https://jsonplaceholder.typicode.com/users"
+def get_all_employee_todo_progress():
+    url = "https://jsonplaceholder.typicode.com/users"
+    response = requests.get(url)
+    employees = response.json()
 
-    # Fetching employee details
-    employee_response = requests.get(employee_url)
-    employee_data = employee_response.json()
+    data = {}
+    for employee in employees:
+        employee_id = employee['id']
+        url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+        response = requests.get(url)
+        todos = response.json()
 
-    # Creating JSON object
-    json_data = {}
-    for employee in employee_data:
-        employee_id = str(employee["id"])
-        employee_name = employee["name"]
-        json_data[employee_id] = []
-        todos_response = requests.get(f"{todos_url}?userId={employee_id}")
-        todos_data = todos_response.json()
-        for task in todos_data:
-            json_data[employee_id].append({
-                "task": task["title"],
-                "completed": task["completed"],
-                "username": employee_name
+        data[employee_id] = []
+        for todo in todos:
+            data[employee_id].append({
+                "username": employee['username'],
+                "task": todo['title'],
+                "completed": todo['completed']
             })
 
-    # Creating JSON file
-    json_filename = "todo_all_employees.json"
-    with open(json_filename, "w") as jsonfile:
-        json.dump(json_data, jsonfile)
+    with open("todo_all_employees.json", mode='w') as file:
+        json.dump(data, file)
 
-    print(f"JSON file '{json_filename}' has been created successfully.")
-
+if __name__ == '__main__':
+    get_all_employee_todo_progress()
