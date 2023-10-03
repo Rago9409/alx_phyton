@@ -14,6 +14,14 @@ def get_employee_todo_progress(employee_id):
     url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
     response = requests.get(url)
     todos = response.json()
+    
+    total_tasks = len(todos)
+    done_tasks = sum(1 for todo in todos if todo['completed'])
+
+    print(f"Employee {employee['name']} is done with tasks({done_tasks}/{total_tasks}):")
+    for todo in todos:
+        if todo['completed']:
+            print(f"\t {todo['title']}")
 
     with open(f"{employee_id}.csv", mode='w', newline='') as csvfile:
         writer = csv.writer(csvfile)
