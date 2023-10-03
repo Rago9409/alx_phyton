@@ -3,28 +3,26 @@
 import json
 import requests
 
-def get_all_employee_todo_progress():
-    url = "https://jsonplaceholder.typicode.com/users"
-    response = requests.get(url)
-    employees = response.json()
+url = 'https://jsonplaceholder.typicode.com/todos'
+response = requests.get(url)
+todos = json.loads(response.text)
 
-    data = {}
-    for employee in employees:
-        employee_id = employee['id']
-        url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-        response = requests.get(url)
-        todos = response.json()
+# Create a dictionary to hold all tasks from all employees
+all_tasks = {}
 
-        data[employee_id] = []
-        for todo in todos:
-            data[employee_id].append({
-                "username": employee['username'],
-                "task": todo['title'],
-                "completed": todo['completed']
-            })
+# Iterate over each task and add it to the dictionary
+for todo in todos:
+    user_id = todo['userId']
+    task = {
+        'username': 'USERNAME',
+        'task': todo['title'],
+        'completed': todo['completed']
+    }
+    if user_id in all_tasks:
+        all_tasks[user_id].append(task)
+    else:
+        all_tasks[user_id] = [task]
 
-    with open("todo_all_employees.json", mode='w') as file:
-        json.dump(data, file)
-
-if __name__ == '__main__':
-    get_all_employee_todo_progress()
+# Save the dictionary as a JSON file
+with open('todo_all_employees.json', 'w') as f:
+    json.dump(all_tasks, f)
