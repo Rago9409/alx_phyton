@@ -3,6 +3,7 @@
 
 import csv
 import requests
+import sys
 
 def get_employee_todo_list_progress(employee_id):
     # Get employee details
@@ -29,3 +30,12 @@ def get_employee_todo_list_progress(employee_id):
         writer.writerow(['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE'])
         for todo in todos:
             writer.writerow([employee_id, employee_name, todo['completed'], todo['title']])
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} EMPLOYEE_ID")
+        sys.exit(1)
+
+
+    employee_id = sys.argv[1]
+    get_employee_todo_list_progress(employee_id)
