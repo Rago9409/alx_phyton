@@ -15,8 +15,8 @@ def get_employee_todo_progress(employee_id):
     response = requests.get(url)
     todos = response.json()
 
-    with open(f"{employee_id}.csv", mode='w', newline='') as file:
-        writer = csv.writer(file)
+    with open(f"{employee_id}.csv", mode='w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
         writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         for todo in todos:
             writer.writerow([employee_id, employee['name'], todo['completed'], todo['title']])
