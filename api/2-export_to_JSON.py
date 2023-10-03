@@ -3,33 +3,34 @@
 
 import json
 import requests
-import sys
 
-def get_employee_todo_progress(employee_id):
-    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    response = requests.get(url)
-    employee = response.json()
+def get_employee_todo_list_progress(employee_id):
+    # Get employee details
+    response = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}')
+    employee_name = response.json()['name']
 
-    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    response = requests.get(url)
+    # Get employee TODO list
+    response = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}/todos')
     todos = response.json()
 
-    data = {}
-    data[employee_id] = []
+    # Calculate progress
+    total_tasks = len(todos)
+    done_tasks = len([todo for todo in todos if todo['completed']])
+
+    # Print progress report
+    print(f'Employee {employee_name} is done with tasks({done_tasks}/{total_tasks}):')
     for todo in todos:
-        data[employee_id].append({
-            "task": todo['title'],
-            "completed": todo['completed'],
-            "username": employee['name']
+        if todo['completed']:
+            print(f'\t{todo["title"]}')
+
+    # Export data to JSON file
+    data = {str(employee_id): []}
+    for todo in todos:
+        data[str(employee_id)].append({
+            'task': todo['title'],
+            'completed': todo['completed'],
+            'username': employee_name
         })
 
-    with open(f"{employee_id}.json", mode='w') as file:
-        json.dump(data, file)
-
-if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} EMPLOYEE_ID")
-        sys.exit(1)
-
-    employee_id = sys.argv[1]
-    get_employee_todo_progress(employee_id)
+    with open(f'{employee_id}.json', 'w') as jsonfile:
+        json.dump(data, jsonfile)
