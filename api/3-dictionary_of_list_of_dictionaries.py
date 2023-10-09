@@ -1,28 +1,18 @@
-"""fetching employee,TODO lists and counting completed tasks
-"""
+#!/usr/bin/python3
+"""Exports to-do list information of all employees to JSON format."""
 import json
 import requests
 
-url = 'https://jsonplaceholder.typicode.com/todos'
-response = requests.get(url)
-todos = json.loads(response.text)
+if __name__ == "__main__":
+    url = "https://jsonplaceholder.typicode.com/"
+    users = requests.get(url + "users").json()
 
-# Create a dictionary to hold all tasks from all employees
-all_tasks = {}
-
-# Iterate over each task and add it to the dictionary
-for todo in todos:
-    user_id = todo['userId']
-    task = {
-        'username': 'USERNAME',
-        'task': todo['title'],
-        'completed': todo['completed']
-    }
-    if user_id in all_tasks:
-        all_tasks[user_id].append(task)
-    else:
-        all_tasks[user_id] = [task]
-
-# Save the dictionary as a JSON file
-with open('todo_all_employees.json', 'w') as f:
-    json.dump(all_tasks, f)
+    with open("todo_all_employees.json", "w") as jsonfile:
+        json.dump({
+            u.get("id"): [{
+                "task": t.get("title"),
+                "completed": t.get("completed"),
+                "username": u.get("username")
+            } for t in requests.get(url + "todos",
+                                    params={"userId": u.get("id")}).json()]
+            for u in users}, jsonfile)
