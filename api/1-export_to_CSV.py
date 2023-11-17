@@ -5,31 +5,29 @@ import csv
 import requests
 import sys
 
-def get_employee_todo_list_progress(employee_id):
-    # Get employee details
-    response = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}')
-    employee_name = response.json()['name']
+def get_employee_todo_progress(employee_id):
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+    response = requests.get(url)
+    employee = response.json()
 
-    # Get employee TODO list
-    response = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}/todos')
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+    response = requests.get(url)
     todos = response.json()
 
-    # Calculate progress
     total_tasks = len(todos)
-    done_tasks = len([todo for todo in todos if todo['completed']])
+    done_tasks = sum(1 for todo in todos if todo['completed'])
 
-    # Print progress report
-    print(f'Employee {employee_name} is done with tasks({done_tasks}/{total_tasks}):')
+    print(f"Employee {employee['name']} is done with tasks({done_tasks}/{total_tasks}):")
     for todo in todos:
         if todo['completed']:
-            print(f'\t{todo["title"]}')
+            print(f"\t {todo['title']}")
 
-    # Export data to CSV file
-    with open(f'{employee_id}.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE'])
+    # Export data to CSV
+    with open(f"{employee_id}.csv", "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         for todo in todos:
-            writer.writerow([employee_id, employee_name, todo['completed'], todo['title']])
+            writer.writerow([employee_id, employee['username'], todo['completed'], todo['title']])
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
@@ -37,4 +35,4 @@ if __name__ == '__main__':
         sys.exit(1)
 
     employee_id = sys.argv[1]
-    get_employee_todo_list_progress(employee_id)
+    get_employee_todo_progress(employee_id)
